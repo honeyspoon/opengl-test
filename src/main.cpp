@@ -1,54 +1,43 @@
-/* Ask for an OpenGL Core Context */
-#define GLFW_INCLUDE_GLCOREARB
 #include <GLFW/glfw3.h>
 
-#define BUFFER_OFFSET(i) ((char *)NULL + (i))
-
-int main(int argc, char** argv)
+int main(void)
 {
-  GLFWwindow* window;
+	GLFWwindow* window;
 
-  /* Initialize the library */
-  if ( !glfwInit() )
-  {
-     return -1;
-  }
+	/* Initialize the library */
+	if (!glfwInit())
+		return -1;
 
-#ifdef __APPLE__
-  /* We need to explicitly ask for a 3.2 context on OS X */
-  glfwWindowHint (GLFW_CONTEXT_VERSION_MAJOR, 3);
-  glfwWindowHint (GLFW_CONTEXT_VERSION_MINOR, 2);
-  glfwWindowHint (GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-  glfwWindowHint (GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-#endif
+	/* Create a windowed mode window and its OpenGL context */
+	window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+	if (!window)
+	{
+		glfwTerminate();
+		return -1;
+	}
 
-  /* Create a windowed mode window and its OpenGL context */
-	unsigned int width = 600;
-	unsigned int height = 400;
+	/* Make the window's context current */
+	glfwMakeContextCurrent(window);
 
-  window = glfwCreateWindow( width, height, "Hello Marcus", NULL, NULL );
-  if (!window)
-  {
-     glfwTerminate();
-     return -1;
-  }
+	/* Loop until the user closes the window */
+	while (!glfwWindowShouldClose(window))
+	{
+		/* Render here */
+		glClear(GL_COLOR_BUFFER_BIT);
 
-  /* Make the window's context current */
-  glfwMakeContextCurrent(window);
+		glBegin(GL_TRIANGLES);
+		glVertex2f(-0.5f, -0.5f);
+		glVertex2f(0.0f, 0.5f);
+		glVertex2f(0.5f, -0.5f);
+		glEnd();
 
-  /* Loop until the user closes the window */
-  while (!glfwWindowShouldClose(window))
-  {
-    /* Render here */
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the buffers
+		/* Swap front and back buffers */
+		glfwSwapBuffers(window);
 
-    /* Swap front and back buffers */
-    glfwSwapBuffers(window);
+		/* Poll for and process events */
+		glfwPollEvents();
+	}
 
-    /* Poll for and process events */
-    glfwPollEvents();
-  }
-
-  glfwTerminate();
-  return 0;
+	glfwTerminate();
+	return 0;
 }
