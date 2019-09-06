@@ -14,6 +14,7 @@ tested on
 
 * meson
 * glfw
+* glew
 
 ```sh
 meson build
