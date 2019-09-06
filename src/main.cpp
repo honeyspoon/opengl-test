@@ -33,8 +33,11 @@ int main(void)
 	};
 	unsigned int buffer;
 	glGenBuffers(1, &buffer);
+
 	glBindBuffer(GL_ARRAY_BUFFER, buffer);
 	glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), positions, GL_STATIC_DRAW );
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
 
 	std::cout << glGetString(GL_VERSION) << std::endl;
 
