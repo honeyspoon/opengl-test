@@ -1,6 +1,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <fstream>
 
 static unsigned int compileShader(unsigned int type, const std::string& source)
 {
@@ -91,23 +92,18 @@ int main(void)
 
 	std::cout << glGetString(GL_VERSION) << std::endl;
 
-	std::string vertexShader = R"(
-	#version 330 core
+	std::ifstream vertexIfs("src/shaders/basic.vert");
+	std::string vertexShader(
+			(std::istreambuf_iterator<char>(vertexIfs)),
+      (std::istreambuf_iterator<char>())
+		);;
 
-	layout(location = 0) in vec4 position;
-	void main()
-	{
-		gl_Position = position;
-	})";
+	std::ifstream fragmentIfs("src/shaders/basic.frag");
+	std::string fragmentShader(
+			(std::istreambuf_iterator<char>(fragmentIfs)),
+      (std::istreambuf_iterator<char>())
+		);;
 
-	std::string fragmentShader = R"(
-	#version 330 core
-
-	layout(location = 0) out vec4 color;
-	void main()
-	{
-		color = vec4(1.0, 0.0, 0.0, 1.0);
-	})";
 
 	unsigned int shader = createShader(vertexShader, fragmentShader);
 	glUseProgram(shader);
