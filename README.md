@@ -18,9 +18,8 @@ tested on
 
 ```sh
 meson build
-cd build
-ninja
-./run
+ninja -C build
+build/run
 ```
 
 
