@@ -1,1 +1,8 @@
 set makeprg=ninja\ -C\ build
+
+" the path variable is used to find files when using 'gf'
+" find where your cpp includes are in your machine
+" find where the includes for both of these libraries are with you local package manager
+set path+=/usr/local/Cellar/glew/2.1.0/include/**
+set path+=/usr/local/Cellar/glfw/3.3/include/**
+
